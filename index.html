@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <title>The Last Retirement Calculator You'll Ever Need</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <h1>
+      Simple Retirement Calculator
+    </h1>
+    <br/>
+    <br/>
+    <div id="app" style="width: 50%; margin: 0 auto;">
+      <div class="input-item">
+        <div class="col-md-3">
+          <span>Target Annual Income:</span>
+        </div>
+        <div class="col-md-9">
+          <input type="text" v-model="targetIncome" @input="updateTargetNestEgg" />
+        </div>
+      </div>
+      <div class="input-item">
+        <div class="col-md-3">
+          <span>Safe Withdrawal Rate:</span>
+        </div>
+        <div class="col-md-9">
+          <input type="range" min=".5" max ="7" step=".25" value="4" @input="updateWithdrawalPercentage" /><span>{{withdrawalPercentage}}%</span>
+        </div>
+      </div>
+      <div class="input-item">
+        <div class="col-md-3">
+          <span>Target Nest Egg:</span>
+        </div>
+        <div class="col-md-9">
+          <input type="text" v-model="targetNestEgg"/>
+        </div>
+      </div>
+      <div class="input-item">
+        <div class="col-md-3">
+          <span>Target Annual Income:</span>
+        </div>
+        <div class="col-md-9">
+          <input type="text" />
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
