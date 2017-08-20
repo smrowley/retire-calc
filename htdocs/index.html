@@ -9,7 +9,7 @@
   </head>
   <body>
     <h1>
-      Simple Retirement Calculator
+      Calculator
     </h1>
     <br/>
     <br/>
@@ -40,10 +40,18 @@
       </div>
       <div class="input-item">
         <div class="col-md-3">
-          <span>Target Annual Income:</span>
+          <span>Current Nest Egg:</span>
         </div>
         <div class="col-md-9">
-          <input type="text" />
+          <input type="text" v-model="currentNestEgg"/>
+        </div>
+      </div>
+      <div class="input-item">
+        <div class="col-md-3">
+          <span>Average Annual Return:</span>
+        </div>
+        <div class="col-md-9">
+          <input type="range" min=".5" max ="7" step=".25" value="4" @input="updateAnnualReturn" /><span>{{averageAnnualReturn}}%</span>
         </div>
       </div>
     </div>
