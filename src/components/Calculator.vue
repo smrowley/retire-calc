@@ -1,62 +1,25 @@
 <template>
   <div class="calculator">
     <h3>{{title}}</h3>
+    <span>Hi {{targetIncome}}</span>
     <br />
     <br />
-  <!--<div id="app" style="width: 50%; margin: 0 auto;">
-    <div class="input-item">
-      <div class="col-md-3">
-        <span>Target Annual Income:</span>
-      </div>
-      <div class="col-md-9">
-        <input type="text" v-model="targetIncome" @input="updateTargetNestEgg" />
-      </div>
-    </div>
-    <div class="input-item">
-      <div class="col-md-3">
-        <span>Safe Withdrawal Rate:</span>
-      </div>
-      <div class="col-md-9">
-        <input type="range" min=".5" max ="7" step=".25" value="4" @input="updateWithdrawalPercentage" /><span>{{withdrawalPercentage}}%</span>
-      </div>
-    </div>
-    <div class="input-item">
-      <div class="col-md-3">
-        <span>Target Nest Egg:</span>
-      </div>
-      <div class="col-md-9">
-        <input type="text" v-model="targetNestEgg"/>
-      </div>
-    </div>
-    <div class="input-item">
-      <div class="col-md-3">
-        <span>Current Nest Egg:</span>
-      </div>
-      <div class="col-md-9">
-        <input type="text" v-model="currentNestEgg"/>
-      </div>
-    </div>
-    <div class="input-item">
-      <div class="col-md-3">
-        <span>Average Annual Return:</span>
-      </div>
-      <div class="col-md-9">
-        <input type="range" min=".5" max ="7" step=".25" value="4" @input="updateAnnualReturn" /><span>{{averageAnnualReturn}}%</span>
-      </div>
-    </div>
-  </div>-->
+    <dollar-input label="Target Income" :dollarValue.sync="targetIncome"></dollar-input>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'calculator',
-  data: function () {
-    return {
-      title: 'Simple Retirement Calculator'
+  import DollarInput from './DollarInput'
+  export default {
+    name: 'calculator',
+    components: {DollarInput},
+    data: function () {
+      return {
+        title: 'hi',
+        targetIncome: 1.00
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
