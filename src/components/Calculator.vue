@@ -12,7 +12,7 @@
             hint="The annual income you would like in retirement."
             :rules="dollarInputRules">
           </v-text-field>
-          {{safeWithdrawalRate * 100}}%
+          {{safeWithdrawalPercentage}}%
           <v-slider
             v-model="safeWithdrawalSliderValue"
             :min="200"
@@ -52,6 +52,9 @@
     computed: {
       safeWithdrawalRate: function () {
         return this.safeWithdrawalSliderValue / 10000
+      },
+      safeWithdrawalPercentage: function () {
+        return (this.safeWithdrawalRate * 100).toFixed(2)
       },
       targetNestEgg: function () {
         return (this.targetIncome * (1 / this.safeWithdrawalRate)).toFixed(2)
