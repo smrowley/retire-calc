@@ -1,10 +1,13 @@
 <template>
   <div class="calculator">
-    <h3>{{title}}</h3>
-    <span>Hi {{targetIncome}}</span>
-    <br />
-    <br />
-    <dollar-input label="Target Income" :dollarValue.sync="targetIncome"></dollar-input>
+    <v-card class="grey lighten-4 elevation-0">
+      <h3>{{title}}</h3>
+      <span>Hi {{targetIncome}}</span>
+      <br />
+      <br />
+      <!--<dollar-input label="Target Income" :dollarValue.sync="targetIncome"></dollar-input>-->
+      <v-text-field name="targetIncome" label="Target Income" id="targetIncome"></v-text-field>
+    </v-card>
   </div>
 </template>
 
