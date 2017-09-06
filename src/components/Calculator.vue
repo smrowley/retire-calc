@@ -1,13 +1,33 @@
 <template>
-  <div class="calculator">
-    <v-card class="grey lighten-4 elevation-0">
-      <h3>{{title}}</h3>
-      <span>Hi {{targetIncome}}</span>
-      <br />
-      <br />
-      <!--<dollar-input label="Target Income" :dollarValue.sync="targetIncome"></dollar-input>-->
-      <v-text-field name="targetIncome" label="Target Income" id="targetIncome"></v-text-field>
-    </v-card>
+  <div class="calculator" style="padding: 20px">
+    <v-app>
+      <v-card>
+        <v-card-text>
+          <h5>{{title}}</h5>
+          <br />
+          <br />
+          <v-text-field
+            label="Target Income"
+            v-model="targetIncome"
+            hint="The annual income you would like in retirement."
+            :rules="dollarInputRules">
+          </v-text-field>
+          {{safeWithdrawalRate * 100}}%
+          <v-slider
+            v-model="safeWithdrawalSliderValue"
+            :min="200"
+            :max="700"
+            :step="25"
+            snap></v-slider>
+          <v-text-field
+            label="Target Nest Egg"
+            v-model="targetNestEgg"
+            hint="The nest egg required to support your target income."
+            readonly>
+          </v-text-field>
+        </v-card-text>
+      </v-card>
+    </v-app>
   </div>
 </template>
 
@@ -18,8 +38,23 @@
     components: {DollarInput},
     data: function () {
       return {
-        title: 'hi',
-        targetIncome: 1.00
+        title: 'Simple Retirement Calculator',
+        targetIncome: 20000,
+        safeWithdrawalSliderValue: 400,
+        dollarInputRules: [
+          function (value) {
+            var regex = /^\d+(?:\.\d{0,2})?$/
+            return regex.test(value) || 'Must be a dollar amount.'
+          }
+        ]
+      }
+    },
+    computed: {
+      safeWithdrawalRate: function () {
+        return this.safeWithdrawalSliderValue / 10000
+      },
+      targetNestEgg: function () {
+        return (this.targetIncome * (1 / this.safeWithdrawalRate)).toFixed(2)
       }
     }
   }
