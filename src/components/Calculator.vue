@@ -39,7 +39,32 @@
             :min="200"
             :max="1200"
             :step="25"
-            snap></v-slider>
+            snap>
+          </v-slider>
+          <v-text-field
+            label="Retire Today Annual Income"
+            v-model="retireTodayIncome"
+            hint="The income your nest egg can produce annually for eternity."
+            readonly>
+          </v-text-field>
+          <v-text-field
+            label="Years to Retirement Without Contributions"
+            v-model="yearsToRetireNoContributions"
+            hint="The number of years until retirement if you made no more contributions."
+            readonly>
+          </v-text-field>
+          <v-text-field
+            label="Annual Contributions"
+            v-model="annualContributions"
+            hint="The annual income you would like in retirement."
+            :rules="dollarInputRules">
+          </v-text-field>
+          <v-text-field
+            label="Years to Retirement"
+            v-model="yearsToRetire"
+            hint="The number of years until retirement."
+            readonly>
+          </v-text-field>
         </v-card-text>
       </v-card>
     </v-app>
@@ -54,6 +79,7 @@
         title: 'Simple Retirement Calculator',
         targetIncome: 20000,
         currentNestEgg: 10000,
+        annualContributions: 5000,
         safeWithdrawalSliderValue: 400,
         annualReturnSliderValue: 700,
         dollarInputRules: [
@@ -78,7 +104,19 @@
         return (this.averageAnnualReturn * 100).toFixed(2)
       },
       targetNestEgg: function () {
-        return (this.targetIncome * (1 / this.safeWithdrawalRate)).toFixed(2)
+        return +(this.targetIncome * (1 / this.safeWithdrawalRate)).toFixed(2)
+      },
+      retireTodayIncome: function () {
+        return +(this.safeWithdrawalRate * this.currentNestEgg).toFixed(2)
+      },
+      lnReturnRate: function () {
+        return Math.log(1 + this.averageAnnualReturn)
+      },
+      yearsToRetireNoContributions: function () {
+        return +(Math.log(this.targetNestEgg / this.currentNestEgg) / this.lnReturnRate).toFixed(2)
+      },
+      yearsToRetire: function () {
+        return +(Math.log((this.annualContributions + this.targetNestEgg * this.lnReturnRate) / (this.annualContributions + this.currentNestEgg * this.lnReturnRate)) / this.lnReturnRate).toFixed(2)
       }
     }
   }
