@@ -25,6 +25,21 @@
             hint="The nest egg required to support your target income."
             readonly>
           </v-text-field>
+          <br/>
+          <br/>
+          <v-text-field
+            label="Current Retirement Nest Egg"
+            v-model="currentNestEgg"
+            hint="Your current retirement nest egg."
+            :rules="dollarInputRules">
+          </v-text-field>
+          {{averageAnnualReturnPercentage}}%
+          <v-slider
+            v-model="annualReturnSliderValue"
+            :min="200"
+            :max="1200"
+            :step="25"
+            snap></v-slider>
         </v-card-text>
       </v-card>
     </v-app>
@@ -32,15 +47,15 @@
 </template>
 
 <script>
-  import DollarInput from './DollarInput'
   export default {
     name: 'calculator',
-    components: {DollarInput},
     data: function () {
       return {
         title: 'Simple Retirement Calculator',
         targetIncome: 20000,
+        currentNestEgg: 10000,
         safeWithdrawalSliderValue: 400,
+        annualReturnSliderValue: 700,
         dollarInputRules: [
           function (value) {
             var regex = /^\d+(?:\.\d{0,2})?$/
@@ -53,8 +68,14 @@
       safeWithdrawalRate: function () {
         return this.safeWithdrawalSliderValue / 10000
       },
+      averageAnnualReturn: function () {
+        return this.annualReturnSliderValue / 10000
+      },
       safeWithdrawalPercentage: function () {
         return (this.safeWithdrawalRate * 100).toFixed(2)
+      },
+      averageAnnualReturnPercentage: function () {
+        return (this.averageAnnualReturn * 100).toFixed(2)
       },
       targetNestEgg: function () {
         return (this.targetIncome * (1 / this.safeWithdrawalRate)).toFixed(2)
