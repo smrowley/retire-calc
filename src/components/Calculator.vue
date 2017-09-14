@@ -10,6 +10,7 @@
             label="Target Income"
             v-model="targetIncome"
             hint="The annual income you would like in retirement."
+            prefix="$"
             :rules="dollarInputRules">
           </v-text-field>
           {{safeWithdrawalPercentage}}%
@@ -23,6 +24,7 @@
             label="Target Nest Egg"
             v-model="targetNestEgg"
             hint="The nest egg required to support your target income."
+            prefix="$"
             readonly>
           </v-text-field>
           <br/>
@@ -31,6 +33,7 @@
             label="Current Retirement Nest Egg"
             v-model="currentNestEgg"
             hint="Your current retirement nest egg."
+            prefix="$"
             :rules="dollarInputRules">
           </v-text-field>
           {{averageAnnualReturnPercentage}}%
@@ -45,6 +48,7 @@
             label="Retire Today Annual Income"
             v-model="retireTodayIncome"
             hint="The income your nest egg can produce annually for eternity."
+            prefix="$"
             readonly>
           </v-text-field>
           <v-text-field
@@ -57,6 +61,7 @@
             label="Annual Contributions"
             v-model="annualContributions"
             hint="The annual income you would like in retirement."
+            prefix="$"
             :rules="dollarInputRules">
           </v-text-field>
           <v-text-field
@@ -98,13 +103,13 @@
         return this.annualReturnSliderValue / 10000
       },
       safeWithdrawalPercentage: function () {
-        return (this.safeWithdrawalRate * 100).toFixed(2)
+        return parseFloat((this.safeWithdrawalRate * 100).toFixed(2))
       },
       averageAnnualReturnPercentage: function () {
-        return (this.averageAnnualReturn * 100).toFixed(2)
+        return parseFloat((this.averageAnnualReturn * 100).toFixed(2))
       },
       targetNestEgg: function () {
-        return +(this.targetIncome * (1 / this.safeWithdrawalRate)).toFixed(2)
+        return parseFloat((this.targetIncome * (1 / this.safeWithdrawalRate)).toFixed(2))
       },
       retireTodayIncome: function () {
         return +(this.safeWithdrawalRate * this.currentNestEgg).toFixed(2)
@@ -113,10 +118,10 @@
         return Math.log(1 + this.averageAnnualReturn)
       },
       yearsToRetireNoContributions: function () {
-        return +(Math.log(this.targetNestEgg / this.currentNestEgg) / this.lnReturnRate).toFixed(2)
+        return (Math.log(this.targetNestEgg / this.currentNestEgg) / this.lnReturnRate).toFixed(2)
       },
       yearsToRetire: function () {
-        return +(Math.log((this.annualContributions + this.targetNestEgg * this.lnReturnRate) / (this.annualContributions + this.currentNestEgg * this.lnReturnRate)) / this.lnReturnRate).toFixed(2)
+        return (Math.log((parseFloat(this.annualContributions) + this.targetNestEgg * this.lnReturnRate) / (parseFloat(this.annualContributions) + this.currentNestEgg * this.lnReturnRate)) / this.lnReturnRate).toFixed(2)
       }
     }
   }
