@@ -16,3 +16,5 @@ firefox_*/
 *.ntvs*
 *.njsproj
 *.sln
+
+.tern-project
